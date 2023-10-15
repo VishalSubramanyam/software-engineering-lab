@@ -1,0 +1,14 @@
+{% extends 'users/dashboard_base.html' %}
+{% block dashboard_contents %}
+    <div class="card">
+        <div class="d-flex card-header justify-content-center">
+            Mess Management
+        </div>
+        <div class="card-body btn-group-vertical">
+            <a href="{% url 'mess-dues' %}" class="btn btn-block btn-outline-primary">Enter mess fees</a>
+        </div>
+        <div class="card-body btn-group-vertical">
+            <a href="{% url 'view-complaints' %}" class="btn btn-block btn-outline-primary">View mess complaints</a>
+        </div>
+    </div>
+{% endblock %}

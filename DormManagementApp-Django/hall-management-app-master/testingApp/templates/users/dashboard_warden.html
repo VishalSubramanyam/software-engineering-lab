@@ -1,0 +1,37 @@
+{% extends 'users/dashboard_base.html' %}
+{% block dashboard_contents %}
+    <div class="card">
+        <div class="d-flex card-header justify-content-center">
+            Complaint Resolution System
+        </div>
+        <div class="card-body btn-group-vertical">
+            <a class="btn btn-block btn-outline-primary" href="{% url 'view-complaints' %}">View complaints</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="d-flex card-header justify-content-center">
+            Manage Grants
+        </div>
+        <div class="card-body btn-group-vertical">
+            <button type="button" class="btn btn-block btn-outline-primary">Pending Grants</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="d-flex card-header justify-content-center">
+            Fees and Dues
+        </div>
+        <div class="card-body btn-group-vertical">
+            <a href="{% url 'mess-dues' %}" class="btn btn-block btn-outline-primary">Mess dues</a>
+            <a href="{% url 'hall-fees' %}" class="btn btn-block btn-outline-primary">Hall fees</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="d-flex card-header justify-content-center">
+            Expenditure Management
+        </div>
+        <div class="card-body btn-group-vertical">
+            <a href="{% url 'expense-report' %}" class="btn btn-block btn-outline-primary">Expense report</a>
+        </div>
+    </div>
+    </div>
+{% endblock %}

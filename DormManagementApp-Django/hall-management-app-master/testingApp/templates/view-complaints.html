@@ -1,0 +1,62 @@
+{% extends 'users/dashboard_base.html' %}
+
+{% block title %}View Complaints{% endblock %}
+{% block dashboard_contents %}
+    <div class="card">
+        <div class="card-header">
+            <h3>View complaints</h3>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        <strong>{{ message|escape }}</strong>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+            <table class="table table-striped table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Complainant</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Action Taken Report</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint.date_filed }}</td>
+                        <td>{{ complaint.complainant.username }}</td>
+                        <td>{{ complaint.complaint_type }}</td>
+                        <td>{{ complaint.description }}</td>
+                        <td>
+                            {% if role == 'student' or role == 'hall_clerk' or role == 'mess_manager'%}
+                                {% if not complaint.action_taken_report %}
+                                    Report unavailable
+                                {% else %}
+                                    <a href="{{ complaint.action_taken_report.url }}">Download Report</a>
+                                {% endif %}
+                            {% else %}
+                                {% if complaint.action_taken_report %}
+                                    Report submitted
+                                {% else %}
+                                    <form method="POST" action="{% url 'file-atr' %}"enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="complaint_id" value={{ complaint.id }}>
+                                        {{ atr_form.action_taken_report }}
+                                        <button type="submit" class="btn btn-primary">Upload</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
